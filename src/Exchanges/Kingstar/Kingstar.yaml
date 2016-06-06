@@ -1,0 +1,7 @@
+﻿broker_id: xxxxxxxx
+account: xxxxxxxx
+password: xxxxxx
+trading_frontends: # 交易前置机列表
+  - tcp://xxx.xxx.xxx.xxx:xxxxx
+market_frontends: # 行情前置机列表
+  - tcp://xxx.xxx.xxx.xxx:xxxxx
