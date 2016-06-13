@@ -1,6 +1,6 @@
 ﻿namespace LittleQuant.WinformClient
 {
-    partial class MainForm
+    partial class FrmMain
     {
         /// <summary>
         /// Required designer variable.
@@ -36,6 +36,8 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnLogin
@@ -59,14 +61,14 @@
             this.txtLogs.Multiline = true;
             this.txtLogs.Name = "txtLogs";
             this.txtLogs.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLogs.Size = new System.Drawing.Size(832, 543);
+            this.txtLogs.Size = new System.Drawing.Size(1133, 640);
             this.txtLogs.TabIndex = 1;
             // 
             // button3
             // 
             this.button3.AutoSize = true;
             this.button3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button3.Location = new System.Drawing.Point(331, 12);
+            this.button3.Location = new System.Drawing.Point(591, 12);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(63, 22);
             this.button3.TabIndex = 12;
@@ -78,7 +80,7 @@
             // 
             this.button5.AutoSize = true;
             this.button5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button5.Location = new System.Drawing.Point(157, 12);
+            this.button5.Location = new System.Drawing.Point(389, 12);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(87, 22);
             this.button5.TabIndex = 14;
@@ -90,7 +92,7 @@
             // 
             this.button6.AutoSize = true;
             this.button6.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button6.Location = new System.Drawing.Point(510, 12);
+            this.button6.Location = new System.Drawing.Point(965, 12);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(63, 22);
             this.button6.TabIndex = 15;
@@ -102,7 +104,7 @@
             // 
             this.button12.AutoSize = true;
             this.button12.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button12.Location = new System.Drawing.Point(441, 12);
+            this.button12.Location = new System.Drawing.Point(896, 12);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(63, 22);
             this.button12.TabIndex = 21;
@@ -113,17 +115,38 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(250, 17);
+            this.label5.Location = new System.Drawing.Point(670, 17);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 12);
+            this.label5.Size = new System.Drawing.Size(77, 12);
             this.label5.TabIndex = 26;
-            this.label5.Text = "      ";
+            this.label5.Text = "尚未加载策略";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(154, 14);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(229, 20);
+            this.comboBox1.TabIndex = 27;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(493, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 28;
+            this.button1.Text = "手动交易";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(856, 595);
+            this.ClientSize = new System.Drawing.Size(1157, 692);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.button12);
             this.Controls.Add(this.button6);
@@ -149,6 +172,8 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button button1;
     }
 }
 

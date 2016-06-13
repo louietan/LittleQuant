@@ -40,10 +40,15 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CTP", "vendor\CTP\CTP\CTP.v
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CTP", "src\Exchanges\CTP\CTP.csproj", "{E065C5BC-5244-41D0-8306-AF38B22B34CE}"
 EndProject
+<<<<<<< HEAD
+=======
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StrategyBeta", "src\Strategies\StrategyBeta\StrategyBeta.csproj", "{2D169BCE-F19D-4A99-88EF-89EE910D8EED}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XinYeWeb", "src\Exchanges\XinYeWeb\XinYeWeb.csproj", "{82169AA7-8A66-4C4B-9667-F78840CD94F6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commons", "src\Commons\Commons.csproj", "{12794718-45D5-4D29-B02E-045BE2D08A46}"
 EndProject
+>>>>>>> 6db2d86... Implemented a stock exchange by hacking a stockjobber（兴业证券）'s web trading client
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -182,6 +187,22 @@ Global
 		{E065C5BC-5244-41D0-8306-AF38B22B34CE}.Release|Win32.Build.0 = Release|Any CPU
 		{E065C5BC-5244-41D0-8306-AF38B22B34CE}.Release|x64.ActiveCfg = Release|Any CPU
 		{E065C5BC-5244-41D0-8306-AF38B22B34CE}.Release|x64.Build.0 = Release|Any CPU
+<<<<<<< HEAD
+=======
+		{2D169BCE-F19D-4A99-88EF-89EE910D8EED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D169BCE-F19D-4A99-88EF-89EE910D8EED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D169BCE-F19D-4A99-88EF-89EE910D8EED}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2D169BCE-F19D-4A99-88EF-89EE910D8EED}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2D169BCE-F19D-4A99-88EF-89EE910D8EED}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{2D169BCE-F19D-4A99-88EF-89EE910D8EED}.Debug|Win32.Build.0 = Debug|Any CPU
+		{2D169BCE-F19D-4A99-88EF-89EE910D8EED}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2D169BCE-F19D-4A99-88EF-89EE910D8EED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D169BCE-F19D-4A99-88EF-89EE910D8EED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D169BCE-F19D-4A99-88EF-89EE910D8EED}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2D169BCE-F19D-4A99-88EF-89EE910D8EED}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2D169BCE-F19D-4A99-88EF-89EE910D8EED}.Release|Win32.ActiveCfg = Release|Any CPU
+		{2D169BCE-F19D-4A99-88EF-89EE910D8EED}.Release|Win32.Build.0 = Release|Any CPU
+		{2D169BCE-F19D-4A99-88EF-89EE910D8EED}.Release|x64.ActiveCfg = Release|Any CPU
 		{82169AA7-8A66-4C4B-9667-F78840CD94F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{82169AA7-8A66-4C4B-9667-F78840CD94F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82169AA7-8A66-4C4B-9667-F78840CD94F6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -214,6 +235,7 @@ Global
 		{12794718-45D5-4D29-B02E-045BE2D08A46}.Release|Win32.Build.0 = Release|Any CPU
 		{12794718-45D5-4D29-B02E-045BE2D08A46}.Release|x64.ActiveCfg = Release|Any CPU
 		{12794718-45D5-4D29-B02E-045BE2D08A46}.Release|x64.Build.0 = Release|Any CPU
+>>>>>>> 6db2d86... Implemented a stock exchange by hacking a stockjobber（兴业证券）'s web trading client
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -225,6 +247,10 @@ Global
 		{ED636B61-22EA-43AD-A1FF-D51747FD9EFB} = {7A36B97A-DF35-4248-B9C7-4259C9F7AB62}
 		{5C381B75-18D1-4689-ACF4-B7BE1B310790} = {21571ADD-BA72-4354-9C11-9896CCA24519}
 		{E065C5BC-5244-41D0-8306-AF38B22B34CE} = {38338DED-145C-43EB-B913-A82350DA099E}
+<<<<<<< HEAD
+=======
+		{2D169BCE-F19D-4A99-88EF-89EE910D8EED} = {7A36B97A-DF35-4248-B9C7-4259C9F7AB62}
 		{82169AA7-8A66-4C4B-9667-F78840CD94F6} = {38338DED-145C-43EB-B913-A82350DA099E}
+>>>>>>> 6db2d86... Implemented a stock exchange by hacking a stockjobber（兴业证券）'s web trading client
 	EndGlobalSection
 EndGlobal

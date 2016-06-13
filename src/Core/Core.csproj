@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExchangeManager.cs" />
+    <Compile Include="MarketUtility.cs" />
     <Compile Include="OptionPosition.cs" />
     <Compile Include="Quote.cs" />
     <Compile Include="Stock.cs" />
@@ -65,13 +66,14 @@
     <Compile Include="IOrder.cs" />
     <Compile Include="IPosition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StockAccount.cs" />
+    <Compile Include="StockOrder.cs" />
+    <Compile Include="StockPosition.cs" />
     <Compile Include="StrategyManager.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Market.cs" />
     <Compile Include="OptionAccount.cs" />
-    <Compile Include="MarketUtility.cs" />
     <Compile Include="Trade.cs" />
-    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

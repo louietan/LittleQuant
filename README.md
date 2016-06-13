@@ -8,7 +8,9 @@ Status
 
 - This project is a very naive and primitive implementation, it is still in progress
 - By now the following exchanges are supported
-    - Shanghai Stock Exchange (only stock option trading is supported now)
+    - Shanghai Stock Exchange
+        - Stock option trading, two implementations(CTP, Kingstar)
+        - Stock trading, by hacking a stockjobber's web trading client
 
 Known issues
 ------------

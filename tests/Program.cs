@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LittleQuant.Tests
@@ -12,10 +13,20 @@ namespace LittleQuant.Tests
     {
         static void Main(string[] args)
         {
-            var suite = new ExchangeBasicTests<OptionAccount, OptionContract, OptionOrder, OptionPosition>().SetExchange("LittleQuant.Exchanges.CTP.CTPOptionExchange, CTP");
-            RunTests(suite);
-            //suite = new ExchangeBasicTests<OptionAccount, OptionContract, OptionOrder, OptionPosition>().SetExchange("LittleQuant.Exchanges.Kingstar.KingstarOptionExchange, Kingstar");
-            //RunTests(suite);
+            var suite = new ExchangeBasicTests<StockAccount, Stock, StockOrder, StockPosition>().SetExchange("LittleQuant.Exchanges.XinYeWeb.WebTrader, XinYeWebHack");
+            var counter = 0;
+            while (true)
+            {
+                var exchange = suite.Exchange;
+                Console.WriteLine($"============================第{++counter}次测试==================================");
+                Console.WriteLine(exchange.Account.ToString());
+                exchange.SubmitOrder(new StockOrder { InstrumentID = "600300", Qty = 100, Price = 5.21, Side = OrderSide.Buy });
+                //exchange.SubmitOrder(new StockOrder { InstrumentID = "603398", Qty = 100, Price = 39.48, Side = OrderSide.Sell });
+                exchange.SubmitOrder(new StockOrder { InstrumentID = "000725", Qty = 100, Price = 2.05, Side = OrderSide.Buy });
+                Console.WriteLine(exchange.Account.ToString());
+                exchange.Account.PendingOrders.ToList().ForEach(exchange.CancelOrder);
+                Thread.Sleep(2000);
+            }
 
             Console.WriteLine("Done!");
             Console.ReadKey();

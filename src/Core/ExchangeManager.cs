@@ -16,7 +16,7 @@ namespace LittleQuant.Core
                 Log(msg);
         }
 
-        public static IDictionary<Type, IExchange> ExchangeSingletons = new Dictionary<Type, IExchange>();  // 交易所单例对象，键是实现类
+        private static IDictionary<Type, IExchange> ExchangeSingletons = new Dictionary<Type, IExchange>();  // 交易所单例对象，键是实现类
         private static IDictionary<Type, IExchange> Cache = new Dictionary<Type, IExchange>();  // 键是接口
 
         /// <summary>
@@ -52,15 +52,20 @@ namespace LittleQuant.Core
         /// <returns></returns>
         public static T GetExchange<T>() where T : IExchange
         {
-            if (!Cache.ContainsKey(typeof(T)))
+            return (T)GetExchange(typeof(T));
+        }
+
+        public static IExchange GetExchange(Type type)
+        {
+            if (!Cache.ContainsKey(type))
             {
-                var exchange = ExchangeSingletons.Values.FirstOrDefault(_ => _ is T);
+                var exchange = ExchangeSingletons.Values.FirstOrDefault(_ => type.IsAssignableFrom(_.GetType()));
                 if (exchange == null)
-                    throw new Exception($"未注册{typeof(T).Name}接口的实现类");
-                Cache[typeof(T)] = exchange;
+                    throw new Exception($"未注册{type.Name}接口的实现类");
+                Cache[type] = exchange;
             }
 
-            return (T)Cache[typeof(T)];
+            return Cache[type];
         }
     }
 }

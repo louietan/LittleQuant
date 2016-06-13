@@ -54,8 +54,8 @@ namespace LittleQuant.Core
         /// <summary>
         /// 撤单
         /// </summary>
-        /// <param name="orderId"></param>
-        void CancelOrder(string orderId);
+        /// <param name="order"></param>
+        void CancelOrder(TOrder order);
 
         /// <summary>
         /// 获取某个合约当前的行情
@@ -71,4 +71,10 @@ namespace LittleQuant.Core
     public interface IOptionExchange : IExchange<OptionAccount, OptionContract, OptionOrder, OptionPosition>
     {
     }
+
+    /// <summary>
+    /// 股票交易所
+    /// </summary>
+    public interface IStockExchange : IExchange<StockAccount, Stock, StockOrder, StockPosition>
+    { }
 }

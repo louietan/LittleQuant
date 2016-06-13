@@ -12,19 +12,21 @@ using LittleQuant.Core;
 
 namespace LittleQuant.WinformClient
 {
-    public partial class MainForm : Form
+    public partial class FrmMain : Form
     {
         private static Logger Logger = LogManager.GetCurrentClassLogger();
         private IStrategy _strategy;
         private dynamic _appConfig;
 
-        public MainForm()
+        public FrmMain()
         {
             InitializeComponent();
 
+            this.comboBox1.DataSource = new object[] { typeof(IOptionExchange), typeof(IStockExchange) };
+
             this.openFileDialog1.InitialDirectory = Application.StartupPath;
 
-            using (var reader = new StreamReader(Path.Combine(Path.GetDirectoryName(this.GetType().Assembly.Location), "app.yaml")))
+            using (var reader = new StreamReader(Path.Combine(Path.GetDirectoryName(this.GetType().Assembly.Location), "LittleQuant.yaml")))
             {
                 this._appConfig = new DynamicYaml(reader);
             }
@@ -77,7 +79,9 @@ namespace LittleQuant.WinformClient
 
         private void button5_Click(object sender, EventArgs e)
         {
-            this.ShowLog(ExchangeManager.GetExchange<IOptionExchange>().Account.ToString());
+            var type = this.comboBox1.SelectedItem as Type;
+            dynamic exchange = ExchangeManager.GetExchange(type);
+            this.ShowLog(exchange.Account.ToString());
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -94,6 +98,15 @@ namespace LittleQuant.WinformClient
         {
             if (this._strategy != null)
                 this._strategy.Stop();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var type = this.comboBox1.SelectedItem as Type;
+            if (type == typeof(IStockExchange))
+                new FrmStockTrading().Show();
+            else
+                MessageBox.Show("not covered");
         }
     }
 }

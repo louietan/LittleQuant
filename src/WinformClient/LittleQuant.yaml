@@ -1,0 +1,5 @@
+﻿# 交易所接口实现
+exchanges:
+  # - "LittleQuant.Exchanges.Kingstar.KingstarOptionExchange, Kingstar"
+  # - "LittleQuant.Exchanges.CTP.CTPOptionExchange, CTP"
+  - "LittleQuant.Exchanges.XinYeWeb.WebTrader, XinYeWebHack"

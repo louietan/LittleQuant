@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LittleQuant.Core
+namespace LittleQuant.Commons
 {
     public static class Utilities
     {
