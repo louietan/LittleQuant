@@ -38,7 +38,6 @@ namespace LittleQuant.Core
         /// <summary>
         /// 委托编号
         /// </summary>
-        // FIXME: 去掉这个，它不是抽象委托的必要属性
         string OrderID { get; set; }
 
         OrderSide Side { get; set; }

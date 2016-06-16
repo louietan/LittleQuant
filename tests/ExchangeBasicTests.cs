@@ -75,7 +75,7 @@ namespace LittleQuant.Tests
         public bool Test_CancelOrder_ShouldRemovedFromPendingList()
         {
             var pending = this.Exchange.Account.PendingOrders.First();
-            // this.Exchange.CancelOrder(pending.OrderID); TODO: 
+            this.Exchange.CancelOrder(pending);
             Thread.Sleep(2000);
             return this.Exchange.Account.PendingOrders.Any(_ => _.OrderID != pending.OrderID);
         }

@@ -3,6 +3,7 @@ using LittleQuant.Commons.HttpClient;
 using LittleQuant.Core;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -14,8 +15,8 @@ namespace LittleQuant.Exchanges.XinYeWeb
 {
     /// <summary>
     /// 通过向兴业证券web端交易发送http请求实现
+    /// NOTE: Trade, Instruments目前不起作用
     /// </summary>
-    // FIXME: 交易一段时间后会出现登录超时的问题
     public class WebTrader : IStockExchange
     {
         private IHttpClient _http;
@@ -50,7 +51,7 @@ namespace LittleQuant.Exchanges.XinYeWeb
                     "token_id", this._tokenId,
                     "zjzh", (string)this._config.account
                 };
-                var data = this._http.Post("https://webwt.xyzq.com.cn/stock_query.php", formData, deserializer: JsonHelper.ToObject<dynamic>);
+                var data = this.PostEx("https://webwt.xyzq.com.cn/stock_query.php", formData, deserializer: JsonHelper.ToObject<dynamic>);
                 _account.Available = data.item[0].d_2116;
                 _account.Total = data.item[0].d_2191;
 
@@ -67,7 +68,7 @@ namespace LittleQuant.Exchanges.XinYeWeb
                     "token_id", this._tokenId,
                     "zjzh", (string)this._config.account
                 };
-                data = this._http.Post("https://webwt.xyzq.com.cn/stock_query.php", formData, deserializer: JsonHelper.ToObject<dynamic>);
+                data = this.PostEx("https://webwt.xyzq.com.cn/stock_query.php", formData, deserializer: JsonHelper.ToObject<dynamic>);
                 _account.Positions = ((IEnumerable<dynamic>)data.item).Select(_ => new StockPosition { InstrumentID = _.d_2102, Qty = _.d_2117, UsableQty = _.d_2121 }).ToList();
 
                 // ================================================================================
@@ -83,7 +84,6 @@ namespace LittleQuant.Exchanges.XinYeWeb
                     "token_id", this._tokenId,
                     "zjzh", (string)this._config.account
                 };
-
                 var orderMapper = new Func<dynamic, StockOrder>(_ =>
                 {
                     var order = new StockOrder
@@ -100,8 +100,7 @@ namespace LittleQuant.Exchanges.XinYeWeb
                     order.OrderID = order.InstrumentID + order.Side;
                     return order;
                 });
-
-                data = this._http.Post("https://webwt.xyzq.com.cn/stock_query.php", formData, deserializer: JsonHelper.ToObject<dynamic>);
+                data = this.PostEx("https://webwt.xyzq.com.cn/stock_query.php", formData, deserializer: JsonHelper.ToObject<dynamic>);
                 data = (IEnumerable<dynamic>)data.item ?? Enumerable.Empty<dynamic>();
                 this._orders = Enumerable.ToDictionary(Enumerable.GroupBy<dynamic, StockOrder>(data, orderMapper),
                                                        new Func<IGrouping<StockOrder, dynamic>, StockOrder>(_ => _.Key),
@@ -140,9 +139,9 @@ namespace LittleQuant.Exchanges.XinYeWeb
                 "zqdm", order.InstrumentID
             };
 
-            var resp = this._http.Post("https://webwt.xyzq.com.cn/stock_chedan.php", postData, deserializer: JsonHelper.ToObject<dynamic>);
+            var resp = this.PostEx("https://webwt.xyzq.com.cn/stock_chedan.php", postData, deserializer: JsonHelper.ToObject<dynamic>);
             if (resp.ret_code != 0)
-                throw new Exception((string)resp.ret_msg);
+                this.Log?.Invoke($"{resp.ret_msg}");
         }
 
         public Stock GetInstrument(string id)
@@ -177,7 +176,7 @@ namespace LittleQuant.Exchanges.XinYeWeb
                 "yyb_name", "1"
             };
 
-            resp = _http.Post<string>("https://webwt.xyzq.com.cn/login.php?do=do_login", formData, enc: Encoding.GetEncoding("GBK"));
+            resp = this._http.Post<string>("https://webwt.xyzq.com.cn/login.php?do=do_login", formData, enc: Encoding.GetEncoding("GBK"));
             match = Regex.Match(resp, "(?<=login\\(')\\w+");
             if (!match.Success)
                 throw new Exception($"登录异常，返回结果：{resp}");
@@ -206,10 +205,9 @@ namespace LittleQuant.Exchanges.XinYeWeb
                 "zjzh", (string)this._config.account
             };
 
-            var resp = this._http.Post("https://webwt.xyzq.com.cn/stock_weituo.php", postData, deserializer: JsonHelper.ToObject<dynamic>);
-
+            var resp = this.PostEx("https://webwt.xyzq.com.cn/stock_weituo.php", postData, deserializer: JsonHelper.ToObject<dynamic>);
             if (resp.ret_code != 0)
-                throw new Exception($"{resp.ret_msg}");
+                this.Log?.Invoke($"{resp.ret_msg}");
         }
 
         private dynamic QueryStockInfo(string stockCode)
@@ -230,10 +228,28 @@ namespace LittleQuant.Exchanges.XinYeWeb
                 "token_id", this._tokenId
             };
 
-            var respData = this._http.Post("https://webwt.xyzq.com.cn/stock_hq.php", data, deserializer: JsonHelper.ToObject<dynamic>);
+            var respData = this.PostEx("https://webwt.xyzq.com.cn/stock_hq.php", data, deserializer: JsonHelper.ToObject<dynamic>);
             if (respData.ret_code != 0)
-                throw new Exception((string)respData.ret_msg);
+                throw new Exception($"{respData.ret_msg}");
             return respData;
+        }
+
+        private dynamic PostEx(string uri, IList<string> form,
+                               NameValueCollection headers = null,
+                               SpecialHeaders specialHeaders = null,
+                               Func<String, dynamic> deserializer = null,
+                               Encoding enc = null)
+        {
+            var doPost = new Func<dynamic>(() => this._http.Post(uri, form, headers, specialHeaders, deserializer, enc));
+            var needRetry = new Predicate<dynamic>(_ => _.ret_code != 0 && ((string)_.ret_msg).Contains("超时"));
+            dynamic resp;
+            while (needRetry(resp = doPost()))
+            {
+                this.Log?.Invoke($"{resp.ret_msg}，正在重连。。。");
+                this.Initialize();
+                this.Log?.Invoke($"完成重连");
+            }
+            return resp;
         }
     }
 }

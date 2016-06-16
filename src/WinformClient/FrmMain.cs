@@ -104,7 +104,7 @@ namespace LittleQuant.WinformClient
         {
             var type = this.comboBox1.SelectedItem as Type;
             if (type == typeof(IStockExchange))
-                new FrmStockTrading().Show();
+                new FrmStockTrading().ShowDialog();
             else
                 MessageBox.Show("not covered");
         }

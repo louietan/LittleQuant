@@ -369,23 +369,21 @@ namespace LittleQuant.Exchanges.CTP
 
         public void CancelOrder(OptionOrder order)
         {
-            // TODO: 暂时没时间重构，有空再说
-            throw new NotImplementedException();
-            // var order = new List<ThostFtdcOrderField>(this._orders).First(_ => _.OrderSysID == orderId);
-            // var action = new ThostFtdcInputOrderActionField
-            // {
-            //     BrokerID = this._config.BrokerId,
-            //     InvestorID = this._config.Account,
-            //     OrderSysID = orderId,
-            //     ActionFlag = EnumActionFlagType.Delete,
-            //     UserID = this._config.Account,
-            //     ExchangeID = order.ExchangeID,
-            //     OrderRef = order.OrderRef,
-            //     InstrumentID = order.InstrumentID
-            // };
-            // var ret = this._trade.ReqOrderAction(action, this._session.NextRequestID());
-            // if (ret != 0)
-            //     this.OnLog(string.Format("发送撤单请求失败，返回{0}", ret));
+            var native = new List<ThostFtdcOrderField>(this._orders).First(_ => _.OrderSysID == order.OrderID);
+            var action = new ThostFtdcInputOrderActionField
+            {
+                BrokerID = this._config.BrokerId,
+                InvestorID = this._config.Account,
+                OrderSysID = native.OrderSysID,
+                ActionFlag = EnumActionFlagType.Delete,
+                UserID = this._config.Account,
+                ExchangeID = native.ExchangeID,
+                OrderRef = native.OrderRef,
+                InstrumentID = order.InstrumentID
+            };
+            var ret = this._trade.ReqOrderAction(action, this._session.NextRequestID());
+            if (ret != 0)
+                this.OnLog(string.Format("发送撤单请求失败，返回{0}", ret));
         }
 
         public Market Market(OptionContract instrument)

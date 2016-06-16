@@ -20,9 +20,9 @@ namespace LittleQuant.Tests
                 var exchange = suite.Exchange;
                 Console.WriteLine($"============================第{++counter}次测试==================================");
                 Console.WriteLine(exchange.Account.ToString());
-                exchange.SubmitOrder(new StockOrder { InstrumentID = "600300", Qty = 100, Price = 5.21, Side = OrderSide.Buy });
-                //exchange.SubmitOrder(new StockOrder { InstrumentID = "603398", Qty = 100, Price = 39.48, Side = OrderSide.Sell });
-                exchange.SubmitOrder(new StockOrder { InstrumentID = "000725", Qty = 100, Price = 2.05, Side = OrderSide.Buy });
+                exchange.SubmitOrder(new StockOrder { InstrumentID = "600300", Qty = 100, Price = 5.33, Side = OrderSide.Buy });
+                exchange.SubmitOrder(new StockOrder { InstrumentID = "603398", Qty = 100, Price = 41.16, Side = OrderSide.Sell });
+                exchange.SubmitOrder(new StockOrder { InstrumentID = "000725", Qty = 100, Price = 2.09, Side = OrderSide.Buy });
                 Console.WriteLine(exchange.Account.ToString());
                 exchange.Account.PendingOrders.ToList().ForEach(exchange.CancelOrder);
                 Thread.Sleep(2000);
